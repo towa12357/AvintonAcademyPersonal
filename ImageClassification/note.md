@@ -1,3 +1,13 @@
 # [Pythonで画像を分類するプログラムを作成する](https://avinton.com/academy/image-classification-task/)
 - 自身が考えてプログラムを作成する必要があるかつかなり難しいので、「実践編」等の記述があると良いと思います。
 - 「次へ」のボタンで「Pythonによるマルチスレッドプログラミング実践」に飛べるのは不自然かと思います。
+
+# [機械学習を用いた画像分類](https://avinton.com/academy/image-classification/)
+- WSL＋Python環境のため、3.「画像分類プログラムの実行」から開始
+- for内にある処理がインデントされていない。
+```
+img_paths = []
+for file in glob.glob("./1*/*.jpg"):
+img_paths.append(file) ← これとか
+ ```
+ 
