@@ -72,7 +72,7 @@ def first_classification():
 # Second classification
 def second_classification():
     poorly_classified_label_number = 0 
-    path_to_poorly_classified_label = "./sk-results/label"+str(label_number)+"/"
+    path_to_poorly_classified_label = "./sk-results/label"+str(poorly_classified_label_number)+"/"
     
     # Create a list where each element is a path to an image
     img_paths = []
@@ -94,7 +94,7 @@ def second_classification():
     
     # Perform PCA for dimensionality reduction
     n = dataset.shape[0]
-    batch_size = 100
+    batch_size = 50
     ipca = IncrementalPCA()
     
     for i in range(n//batch_size):
