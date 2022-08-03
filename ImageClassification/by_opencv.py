@@ -8,7 +8,7 @@ import cv2         # Processing array and Classify images
 def by_opencv():
     
     PDF_PATH = glob.glob("./PDFs/*.pdf")                 # Path-list for PDFs
-    PDF_DIR = ["results/"+path[7:len(path)-4] for path in PDF_PATH] # Path-list for dirs
+    PDF_DIR = ["cv-result/"+path[7:len(path)-4] for path in PDF_PATH] # Path-list for dirs
     DPI = 100                                            # Dots per inch
     SHRINKED = (int(1284/6), int(1828/6))                # Shrinked-shape
     RG_DIFF_THRESHOLD = 20                               # Saturation difference between R&G

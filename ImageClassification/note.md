@@ -3,11 +3,6 @@
 - 「次へ」のボタンで「Pythonによるマルチスレッドプログラミング実践」に飛べるのは不自然かと思います。
 
 # [機械学習を用いた画像分類](https://avinton.com/academy/image-classification/)
-- WSL＋Python環境のため、3.「画像分類プログラムの実行」から開始
-- for内にある処理がインデントされていない。
-```
-img_paths = []
-for file in glob.glob("./1*/*.jpg"):
-img_paths.append(file) ← これとか
- ```
- 
+## Reference
+- [os.walk](https://docs.python.org/ja/3/library/os.html?highlight=os%20walk#files-and-directorie)
+- [sklearn.cluster.KMeans(random_state)](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)

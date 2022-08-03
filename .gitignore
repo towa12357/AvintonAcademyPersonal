@@ -1,6 +1,8 @@
+ImageClassification/cv-result
 ImageClassification/images/
 ImageClassification/model.h5
 ImageClassification/PDFs/
+ImageClassification/sk-result
 ImageClassification/train/
 ImageClassification/verify/
 StructuedDataAnalysis/train_housing.csv
