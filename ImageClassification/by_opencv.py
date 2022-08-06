@@ -1,25 +1,26 @@
-import glob        # Getting path-list for PDFs
-import os          # Making directory
-import pdf2image   # Convert PDF into data
-import numpy as np # Convert data format and Processing array
-import cv2         # Processing array and Classify images
-
+# Import required libraries
+import glob
+import os
+import pdf2image
+import numpy as np
+import cv2
 
 def by_opencv():
-    
-    PDF_PATH = glob.glob("./PDFs/*.pdf")                 # Path-list for PDFs
+
+    # Definition of constants    
+    PDF_PATH = glob.glob("./PDFs/*.pdf")                              # Path-list for PDFs
     PDF_DIR = ["cv-result/"+path[7:len(path)-4] for path in PDF_PATH] # Path-list for dirs
-    DPI = 100                                            # Dots per inch
-    SHRINKED = (int(1284/6), int(1828/6))                # Shrinked-shape
-    RG_DIFF_THRESHOLD = 20                               # Saturation difference between R&G
-    AREA_THRESHOLD = 3500                                # Dots having saturatino difference
-    FILENAME = "img_{:03d}.jpg"                          # Preserve filename
-    BI_THRES = 55                                        # Binalization threshold
-    H_LOW = 20                                           # Mininum height
-    H_HIGH = 30                                          # Maximun height
-    W_LOW = 20                                           # Minumum width
-    W_HIGH = 30                                          # Maximum width
-    CHARA_NUMBER = 20                                    # Num of Characters
+    DPI = 100                                                         # Dots per inch
+    SHRINKED = (int(1284/6), int(1828/6))                             # Shrinked-shape
+    RG_DIFF_THRESHOLD = 20                                            # Saturation difference between R&G
+    AREA_THRESHOLD = 3500                                             # Dots having saturatino difference
+    FILENAME = "img_{:03d}.jpg"                                       # Preserve filename
+    BI_THRES = 55                                                     # Binalization threshold
+    H_LOW = 20                                                        # Mininum height
+    H_HIGH = 30                                                       # Maximun height
+    W_LOW = 20                                                        # Minumum width
+    W_HIGH = 30                                                       # Maximum width
+    CHARA_NUMBER = 20                                                 # Num of Characters
 
 
     # Make one directory per one PDF

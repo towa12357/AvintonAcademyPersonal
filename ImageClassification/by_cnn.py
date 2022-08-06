@@ -1,12 +1,13 @@
-import cv2                                  # Read image
-import fire                                 # Function-Commandoization
-import glob                                 # Getting path-list for PDFs
-import numpy as np                          # Convert data format and Processing array
+# Import of required libraries and modules
+import cv2
+import fire
+import glob
+import numpy as np
 import os
-import pdf2image                            # PConvert PDF into data
-from tensorflow.keras import layers, models # Make CNN
-from tensorflow.keras.losses import SparseCategoricalCrossentropy # Loss function
+import pdf2image
 
+from tensorflow.keras import layers, models
+from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
 # Get training data
 ## After execution, manually classify images to prepare training data

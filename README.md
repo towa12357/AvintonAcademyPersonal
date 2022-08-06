@@ -13,3 +13,7 @@ The following policies will be followed.
 - Ignore content already provided in the environment.
   - Since GoogleColatobaroty already has Python, 
     the content of installing Python is ignored.
+
+- Less is More
+  - Do not annotate content that can be 
+    understood immediately without annotation
