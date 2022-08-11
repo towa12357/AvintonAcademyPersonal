@@ -5,3 +5,5 @@ sudo apt-get install python3
 # Install Python3 package manager
 sudo apt-get install python3-pip
 sudo pip3 install --upgrade pip
+
+# Uninstall python3 package manager
