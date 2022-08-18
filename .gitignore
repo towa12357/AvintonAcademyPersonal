@@ -1,8 +1,8 @@
-ImageClassification/cv-result
-ImageClassification/images/
-ImageClassification/model.h5
-ImageClassification/PDFs/
-ImageClassification/sk-result
-ImageClassification/train/
-ImageClassification/verify/
-StructuedDataAnalysis/train_housing.csv
+Python/ImageClassification/cv-result/
+Python/ImageClassification/images/
+Python/ImageClassification/model.h5
+Python/ImageClassification/PDFs/
+Python/ImageClassification/sk-result/
+Python/ImageClassification/train/
+Python/ImageClassification/verify/
+Python/StructuedDataAnalysis/train_housing.csv
