@@ -32,6 +32,7 @@ FROM public.kanagawa
 <img src="geometry_command.png" width="400">
 
 ### Import with GUI
-
+- Pending whether to do it or not.
 
 ## Review
+- The execution result was slightly different from what was displayed on the web page, but it was considered to be done.
