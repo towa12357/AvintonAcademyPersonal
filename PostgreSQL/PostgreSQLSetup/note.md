@@ -12,10 +12,10 @@ sudo -u postgres psql postgres # Login PostgreSQL server
 sudo -u postgres createdb avinton
 
 # Configure remote access
-## </etc/postgresql/12/main/pg_hba.conf?
+## </etc/postgresql/12/main/pg_hba.conf
 
 # IPv4 local connections:
-[+] host all all samenet passwor
+[+] host all all samenet password
 
 ## </etc/postgresql/12/main/postgresql.conf>
 
@@ -37,7 +37,7 @@ service postgresql status
 
 # Install pgAdmin
 sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 sudo apt install pgadmin4
 
 # Open pgAdmin and Add New Server
