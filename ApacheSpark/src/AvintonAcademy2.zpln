@@ -1,0 +1,916 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%spark\n\n// Read as a data frame\nval dfPopulation = spark\n.read\n.format(\"csv\")\n.option(\"header\",\"true\")\n.load(\"/data/japan.csv\")\n\n// Filter by population value\n.filter(col(\"population\").isNotNull)\n\n// Create city_ward column\n.withColumn(\n    \"city_ward\",\n    when(col(\"ward\").isNull, lit(\"c\"))\n    .when(col(\"ward\").isNotNull, lit(\"w\"))\n    .otherwise(lit(null))\n)\n\n// Create id column\n.withColumn(\"id\", monotonically_increasing_id())\n\n// Type Casting\n.withColumn(\"population\", col(\"population\").cast(\"Integer\"))\n.withColumn(\"id\", col(\"id\").cast(\"Integer\"))\n\n// Cache in memory\n.cache()\n\n// Display the number of columns and rows\nprintln(dfPopulation.columns.length, dfPopulation.count())\n\n// Display schema\ndfPopulation\n.printSchema\n\n// Display data frame\ndfPopulation\n.show(1000)\n\n// Save in parquet file format\ndfPopulation\n.write\n.format(\"parquet\")\n.mode(\"overwrite\")\n.option(\"header\", \"true\")\n.save(\"/data/japan_population/\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T05:26:05+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=0",
+              "$$hashKey": "object:2707"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=1",
+              "$$hashKey": "object:2708"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=2",
+              "$$hashKey": "object:2709"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=3",
+              "$$hashKey": "object:2710"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661145064904_27003597",
+      "id": "paragraph_1661145064904_27003597",
+      "dateCreated": "2022-08-22T05:11:04+0000",
+      "dateStarted": "2022-08-22T05:26:05+0000",
+      "dateFinished": "2022-08-22T05:26:12+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:2351"
+    },
+    {
+      "text": "%spark\n \n// Load e1yokohama2204.csv as a data frame\nval dfAreaYokohama = spark\n.read\n.option(\"header\",\"true\")\n.csv(\"/data/e1yokohama2204.csv\")\n \n// Create prefecture, city columns\n.withColumn(\"prefecture\", lit(\"Kanagawa-ken\"))\n.withColumn(\"city\", lit(\"Yokohama\"))\n \n// Change column name\n.withColumnRenamed(\"市区名\",\"ward\")\n.withColumnRenamed(\"面積［平方キロメートル］\",\"area\")\n \n// Select the columns needed\n.select(\"prefecture\",\"city\",\"ward\",\"area\")\n \n// Delete unneeded lines\n.filter(col(\"ward\")=!=\"横浜市\")\n \n// Create ward column\n.withColumn(\n    \"ward\",\n     when(col(\"ward\")===\"鶴見区\", \"Tsurumi-ku\")\n    .when(col(\"ward\")===\"神奈川区\", \"Kanagawa-ku\")\n    .when(col(\"ward\")===\"西区\", \"Nishi-ku\")\n    .when(col(\"ward\")===\"中区\", \"Naka-ku\")\n    .when(col(\"ward\")===\"南区\", \"Minami-ku\")\n    .when(col(\"ward\")===\"港南区\", \"Konan-ku\")\n    .when(col(\"ward\")===\"保土ケ谷区\", \"Hodogaya-ku\")\n    .when(col(\"ward\")===\"旭区\", \"Asahi-ku\")\n    .when(col(\"ward\")===\"磯子区\", \"Isogo-ku\")\n    .when(col(\"ward\")===\"金沢区\", \"Kanazawa-ku\")\n    .when(col(\"ward\")===\"港北区\", \"Kohoku-ku\")\n    .when(col(\"ward\")===\"緑区\", \"Midori-ku\")\n    .when(col(\"ward\")===\"青葉区\", \"Aoba-ku\")\n    .when(col(\"ward\")===\"都筑区\", \"Tsuzuki-ku\")\n    .when(col(\"ward\")===\"戸塚区\", \"Totsuka-ku\")\n    .when(col(\"ward\")===\"栄区\", \"Sakae-ku\")\n    .when(col(\"ward\")===\"泉区\", \"Izumi-ku\")\n    .when(col(\"ward\")===\"瀬谷区\", \"Seya-ku\")\n    .otherwise(lit(null))\n    )\n \n// Cache data frames in memory   \n.cache()\n \n// Display the number of columns and rows\nprintln(dfAreaYokohama.columns.length, dfAreaYokohama.count())\n \n// Display schema\ndfAreaYokohama\n.printSchema\n \n// Display DataFrame\ndfAreaYokohama\n.show()\n \n// Save in parquet file format\ndfAreaYokohama\n.write\n.format(\"parquet\")\n.mode(\"overwrite\")\n.option(\"header\", \"true\")\n.save(\"/data/area_yokohama/\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T05:26:38+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=4",
+              "$$hashKey": "object:2770"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=5",
+              "$$hashKey": "object:2771"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=6",
+              "$$hashKey": "object:2772"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=7",
+              "$$hashKey": "object:2773"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661145117503_299703821",
+      "id": "paragraph_1661145117503_299703821",
+      "dateCreated": "2022-08-22T05:11:57+0000",
+      "dateStarted": "2022-08-22T05:26:38+0000",
+      "dateFinished": "2022-08-22T05:26:41+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2352"
+    },
+    {
+      "text": "%spark\n \n// Reading japan_population data\nval dfPopulation = spark\n.read\n.format(\"parquet\")\n.option(\"header\",\"true\")\n.load(\"/data/japan_population/\")\n\n// Cache data frames in memory \n.cache()\n \n// Create dfPopulationHokkaidoKitami\nval dfPopulationHokkaidoKitami = dfPopulation\n\n// Filtering\n.filter(col(\"prefecture\")===\"Hokkaido\"&&col(\"city\")===\"Kitami\")\n\n// Display DataFrame\ndfPopulationHokkaidoKitami.show()\n \n// Create dfPopulationHokkaidoAkabira\nval dfPopulationHokkaidoAkabira = dfPopulation\n\n// Filtering\n.filter(col(\"prefecture\")===\"Hokkaido\"&&col(\"city\")===\"Akabira\")\n\n// Display DataFrame\ndfPopulationHokkaidoAkabira.show()\n \n// Union two data frames\nval dfUnion = dfPopulationHokkaidoKitami\n.union(dfPopulationHokkaidoAkabira)\n\n// Display DataFrame\ndfUnion.show()",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T05:26:45+0000",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=8",
+              "$$hashKey": "object:2833"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=9",
+              "$$hashKey": "object:2834"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=10",
+              "$$hashKey": "object:2835"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=11",
+              "$$hashKey": "object:2836"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=12",
+              "$$hashKey": "object:2837"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661145414298_551219817",
+      "id": "paragraph_1661145414298_551219817",
+      "dateCreated": "2022-08-22T05:16:54+0000",
+      "dateStarted": "2022-08-22T05:26:45+0000",
+      "dateFinished": "2022-08-22T05:26:47+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2353"
+    },
+    {
+      "text": "%spark\n\n// Reading japan_population data\nval dfPopulation = spark\n.read\n.format(\"parquet\")\n.option(\"header\",\"true\")\n.load(\"/data/japan_population/\")\n \n// Reading area_yokohama data\nval dfAreaYokohama = spark\n.read\n.format(\"parquet\")\n.option(\"header\",\"true\")\n.load(\"/data/area_yokohama/\")\n \n// Join dfPopulation and dfAraaYokohama\nval dfJoin = dfPopulation\n.join(\n    dfAreaYokohama,\n    Seq(\"prefecture\",\"city\",\"ward\"),\n    \"inner\"\n    )\n \n// Creating a population_density column\n.withColumn(\"population_density\", col(\"population\")/col(\"area\"))\n \n// Cache DataFrame in memory  \n.cache()\n \n// Display the number of columns and rows\nprintln(dfJoin.columns.length, dfJoin.count())\n \n// Display schema\ndfJoin\n.printSchema\n \n// Display DataFrame\ndfJoin\n.show()",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T05:26:53+0000",
+      "progress": 50,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=13",
+              "$$hashKey": "object:2901"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=14",
+              "$$hashKey": "object:2902"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=15",
+              "$$hashKey": "object:2903"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=16",
+              "$$hashKey": "object:2904"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=17",
+              "$$hashKey": "object:2905"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661145547448_1186960343",
+      "id": "paragraph_1661145547448_1186960343",
+      "dateCreated": "2022-08-22T05:19:07+0000",
+      "dateStarted": "2022-08-22T05:26:53+0000",
+      "dateFinished": "2022-08-22T05:26:54+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2354"
+    },
+    {
+      "text": "",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:15:20+0000",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=37",
+              "$$hashKey": "object:2969"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=38",
+              "$$hashKey": "object:2970"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661146013125_755071871",
+      "id": "paragraph_1661146013125_755071871",
+      "dateCreated": "2022-08-22T05:26:53+0000",
+      "dateStarted": "2022-08-22T06:11:00+0000",
+      "dateFinished": "2022-08-22T06:11:01+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2355"
+    },
+    {
+      "text": "%sql\n-- Loading Data\nCREATE TEMPORARY VIEW japan_population\nUSING org.apache.spark.sql.parquet\nOPTIONS (\n  path \"/data/japan_population/part-00000-5f396a24-bc08-47e3-b7cd-de0bda2f1f1a-c000.snappy.parquet\"\n);",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:40:18+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "prefecture": "string",
+                      "city": "string",
+                      "ward": "string",
+                      "population": "string",
+                      "city_ward": "string",
+                      "id": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=42",
+              "$$hashKey": "object:3022"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661148313278_1428401168",
+      "id": "paragraph_1661148313278_1428401168",
+      "dateCreated": "2022-08-22T06:05:13+0000",
+      "dateStarted": "2022-08-22T06:39:10+0000",
+      "dateFinished": "2022-08-22T06:39:11+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2356"
+    },
+    {
+      "text": "%sql\n-- Most populous district\nSELECT ward\nFROM japan_population\nWHERE city_ward = \"w\"\nORDER BY population DESC\nLIMIT 1;",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:47:53+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "ward": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=48",
+              "$$hashKey": "object:3070"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661149603105_1244698093",
+      "id": "paragraph_1661149603105_1244698093",
+      "dateCreated": "2022-08-22T06:26:43+0000",
+      "dateStarted": "2022-08-22T06:47:53+0000",
+      "dateFinished": "2022-08-22T06:47:53+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2357"
+    },
+    {
+      "text": "%sql\n-- Standard deviation of city population\nSELECT stddev(population)\nFROM japan_population\nWHERE city_ward = \"c\"\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:50:15+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "stddev_samp(CAST(population AS DOUBLE))": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=49",
+              "$$hashKey": "object:3118"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661150623964_765237172",
+      "id": "paragraph_1661150623964_765237172",
+      "dateCreated": "2022-08-22T06:43:43+0000",
+      "dateStarted": "2022-08-22T06:50:13+0000",
+      "dateFinished": "2022-08-22T06:50:14+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2358"
+    },
+    {
+      "text": "%sql\n-- Number of cities in Hokkaido\nSELECT count(*)\nFROM japan_population\nWHERE prefecture = \"Hokkaido\"\nAND city_ward = \"c\";",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:53:32+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "count(1)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=53",
+              "$$hashKey": "object:3166"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661151013897_408940668",
+      "id": "paragraph_1661151013897_408940668",
+      "dateCreated": "2022-08-22T06:50:13+0000",
+      "dateStarted": "2022-08-22T06:53:32+0000",
+      "dateFinished": "2022-08-22T06:53:32+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2359"
+    },
+    {
+      "text": "%sql\n-- Total number of wards in the country\nSELECT count(*)\nFROM japan_population\nWHERE city_ward = \"w\";",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:54:23+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "count(1)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=54",
+              "$$hashKey": "object:3214"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661151109214_2048753299",
+      "id": "paragraph_1661151109214_2048753299",
+      "dateCreated": "2022-08-22T06:51:49+0000",
+      "dateStarted": "2022-08-22T06:54:22+0000",
+      "dateFinished": "2022-08-22T06:54:22+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2360"
+    },
+    {
+      "text": "%sql\n-- Population of each province in descending order\nSELECT prefecture, sum(population) AS population\nFROM japan_population\nWHERE city_ward = \"c\"\nGROUP BY prefecture\nORDER BY population DESC;",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T06:58:32+0000",
+      "progress": 81,
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "prefecture": "string",
+                      "population": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=56",
+              "$$hashKey": "object:3262"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661151262257_1193798216",
+      "id": "paragraph_1661151262257_1193798216",
+      "dateCreated": "2022-08-22T06:54:22+0000",
+      "dateStarted": "2022-08-22T06:58:13+0000",
+      "dateFinished": "2022-08-22T06:58:15+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2361"
+    },
+    {
+      "text": "%sql\n-- Name of each prefecture and the most populous city in the prefecture\nSELECT prefecture, city\nFROM japan_population\nNATURAL INNER JOIN (\n    SELECT prefecture, max(population) as population\n    FROM japan_population\n    WHERE city_ward = \"c\"\n    GROUP BY prefecture\n) as a;",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T07:15:19+0000",
+      "progress": 97,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "prefecture": "string",
+                      "city": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=63",
+              "$$hashKey": "object:3310"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=64",
+              "$$hashKey": "object:3311"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661151457024_1090536289",
+      "id": "paragraph_1661151457024_1090536289",
+      "dateCreated": "2022-08-22T06:57:37+0000",
+      "dateStarted": "2022-08-22T07:15:16+0000",
+      "dateFinished": "2022-08-22T07:15:18+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2362"
+    },
+    {
+      "text": "%sql\n--  Name of each city and the province to which it belongs, the least populated and most populated wards, and the total population of the city on one line for each city\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T08:28:42+0000",
+      "progress": 55,
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "city": "string",
+                      "ward_max_population": "string",
+                      "ward_min_population": "string",
+                      "city_population": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661151740184_922487119",
+      "id": "paragraph_1661151740184_922487119",
+      "dateCreated": "2022-08-22T07:02:20+0000",
+      "dateStarted": "2022-08-22T08:23:08+0000",
+      "dateFinished": "2022-08-22T08:23:08+0000",
+      "status": "ERROR",
+      "$$hashKey": "object:2363"
+    }
+  ],
+  "name": "AvintonAcademy2",
+  "id": "2HBVHC5BR",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": true,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/AvintonAcademy2"
+}
