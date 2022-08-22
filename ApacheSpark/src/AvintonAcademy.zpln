@@ -1,0 +1,555 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%spark\nval df2202 = spark\n.read\n.option(\"header\",\"true\")\n.csv(\"/data/yokohama2202.csv\")\n\nval df2203 = spark\n.read\n.option(\"header\",\"true\")\n.csv(\"/data/yokohama2203.csv\")\n\nval df = df2202\n.union(df2203)\n\ndf\n.write\n.mode(\"overwrite\")\n.option(\"header\", \"true\")\n.csv(\"/data/yokohama_2022_2023/\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T03:32:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true,
+        "tableHide": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf2202\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [年月日: string, 全国地方公共団体コード: string ... 10 more fields]\n\u001b[1m\u001b[34mdf2203\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [年月日: string, 全国地方公共団体コード: string ... 10 more fields]\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [年月日: string, 全国地方公共団体コード: string ... 10 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=0",
+              "$$hashKey": "object:11351"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=1",
+              "$$hashKey": "object:11352"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=2",
+              "$$hashKey": "object:11353"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661128848473_1367738618",
+      "id": "paragraph_1661128848473_1367738618",
+      "dateCreated": "2022-08-22T00:40:48+0000",
+      "dateStarted": "2022-08-22T04:30:40+0000",
+      "dateFinished": "2022-08-22T04:31:05+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:11055"
+    },
+    {
+      "text": "%spark\nval directoryName = z.textbox(\"directory\").toString",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T02:44:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true,
+        "editorHide": false,
+        "tableHide": true
+      },
+      "settings": {
+        "params": {
+          "directory": "yokohama_2022_2023"
+        },
+        "forms": {
+          "directory": {
+            "type": "TextBox",
+            "name": "directory",
+            "displayName": "directory",
+            "defaultValue": "",
+            "hidden": false,
+            "$$hashKey": "object:11163"
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdirectoryName\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m = yokohama_2022_2023\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661131593512_2042139510",
+      "id": "paragraph_1661131593512_2042139510",
+      "dateCreated": "2022-08-22T01:26:33+0000",
+      "dateStarted": "2022-08-22T04:31:05+0000",
+      "dateFinished": "2022-08-22T04:31:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:11056"
+    },
+    {
+      "text": "%spark\nval date = z.select(\"date\", Seq((\"2022-02-01\", \"2022-02-01\"), (\"2022-03-01\", \"2022-03-01\"))).toString",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T02:44:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true,
+        "runOnSelectionChange": true,
+        "tableHide": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {
+          "date": "2022-02-01"
+        },
+        "forms": {
+          "date": {
+            "type": "Select",
+            "options": [
+              {
+                "value": "2022-02-01",
+                "displayName": "2022-02-01",
+                "$$hashKey": "object:11201"
+              },
+              {
+                "value": "2022-03-01",
+                "displayName": "2022-03-01",
+                "$$hashKey": "object:11202"
+              }
+            ],
+            "name": "date",
+            "displayName": "date",
+            "defaultValue": "2022-02-01",
+            "hidden": false,
+            "$$hashKey": "object:11187"
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdate\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m = 2022-02-01\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661131622121_604661549",
+      "id": "paragraph_1661131622121_604661549",
+      "dateCreated": "2022-08-22T01:27:02+0000",
+      "dateStarted": "2022-08-22T04:31:06+0000",
+      "dateFinished": "2022-08-22T04:31:07+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:11057"
+    },
+    {
+      "text": "%spark\nval options = Seq(\n    (\"鶴見区\",\"鶴見区\"),\n    (\"神奈川区\",\"神奈川区\"),\n    (\"中区\",\"中区\"),\n    (\"西区\",\"西区\"),\n    (\"南区\",\"南区\"),\n    (\"港南区\",\"港南区\"),\n    (\"保土ヶ谷区\",\"保土ヶ谷区\"),\n    (\"旭区\",\"旭区\"),\n    (\"磯子区\",\"磯子区\"),\n    (\"金沢区\",\"金沢区\"),\n    (\"港北区\",\"港北区\"),\n    (\"緑区\",\"緑区\"),\n    (\"都筑区\",\"都筑区\"),\n    (\"戸塚区\",\"戸塚区\"),\n    (\"栄区\",\"栄区\"),\n    (\"泉区\",\"泉区\"),\n    (\"瀬谷区\",\"瀬谷区\")\n)\nval ward = z.checkbox(\"ward\", options).toList",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T02:44:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true,
+        "runOnSelectionChange": true,
+        "tableHide": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {
+          "ward": [
+            "鶴見区",
+            "神奈川区",
+            "戸塚区",
+            "都筑区"
+          ]
+        },
+        "forms": {
+          "ward": {
+            "type": "CheckBox",
+            "options": [
+              {
+                "value": "鶴見区",
+                "displayName": "鶴見区",
+                "$$hashKey": "object:11227"
+              },
+              {
+                "value": "神奈川区",
+                "displayName": "神奈川区",
+                "$$hashKey": "object:11228"
+              },
+              {
+                "value": "中区",
+                "displayName": "中区",
+                "$$hashKey": "object:11229"
+              },
+              {
+                "value": "西区",
+                "displayName": "西区",
+                "$$hashKey": "object:11230"
+              },
+              {
+                "value": "南区",
+                "displayName": "南区",
+                "$$hashKey": "object:11231"
+              },
+              {
+                "value": "港南区",
+                "displayName": "港南区",
+                "$$hashKey": "object:11232"
+              },
+              {
+                "value": "保土ヶ谷区",
+                "displayName": "保土ヶ谷区",
+                "$$hashKey": "object:11233"
+              },
+              {
+                "value": "旭区",
+                "displayName": "旭区",
+                "$$hashKey": "object:11234"
+              },
+              {
+                "value": "磯子区",
+                "displayName": "磯子区",
+                "$$hashKey": "object:11235"
+              },
+              {
+                "value": "金沢区",
+                "displayName": "金沢区",
+                "$$hashKey": "object:11236"
+              },
+              {
+                "value": "港北区",
+                "displayName": "港北区",
+                "$$hashKey": "object:11237"
+              },
+              {
+                "value": "緑区",
+                "displayName": "緑区",
+                "$$hashKey": "object:11238"
+              },
+              {
+                "value": "都筑区",
+                "displayName": "都筑区",
+                "$$hashKey": "object:11239"
+              },
+              {
+                "value": "戸塚区",
+                "displayName": "戸塚区",
+                "$$hashKey": "object:11240"
+              },
+              {
+                "value": "栄区",
+                "displayName": "栄区",
+                "$$hashKey": "object:11241"
+              },
+              {
+                "value": "泉区",
+                "displayName": "泉区",
+                "$$hashKey": "object:11242"
+              },
+              {
+                "value": "瀬谷区",
+                "displayName": "瀬谷区",
+                "$$hashKey": "object:11243"
+              }
+            ],
+            "name": "ward",
+            "displayName": "ward",
+            "defaultValue": [
+              "鶴見区",
+              "神奈川区",
+              "中区",
+              "西区",
+              "南区",
+              "港南区",
+              "保土ヶ谷区",
+              "旭区",
+              "磯子区",
+              "金沢区",
+              "港北区",
+              "緑区",
+              "都筑区",
+              "戸塚区",
+              "栄区",
+              "泉区",
+              "瀬谷区"
+            ],
+            "hidden": false,
+            "$$hashKey": "object:11213"
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34moptions\u001b[0m: \u001b[1m\u001b[32mSeq[(String, String)]\u001b[0m = List((鶴見区,鶴見区), (神奈川区,神奈川区), (中区,中区), (西区,西区), (南区,南区), (港南区,港南区), (保土ヶ谷区,保土ヶ谷区), (旭区,旭区), (磯子区,磯子区), (金沢区,金沢区), (港北区,港北区), (緑区,緑区), (都筑区,都筑区), (戸塚区,戸塚区), (栄区,栄区), (泉区,泉区), (瀬谷区,瀬谷区))\n\u001b[1m\u001b[34mward\u001b[0m: \u001b[1m\u001b[32mList[Any]\u001b[0m = List(鶴見区, 神奈川区, 戸塚区, 都筑区)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661132151075_966730583",
+      "id": "paragraph_1661132151075_966730583",
+      "dateCreated": "2022-08-22T01:35:51+0000",
+      "dateStarted": "2022-08-22T04:31:07+0000",
+      "dateFinished": "2022-08-22T04:31:08+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:11058"
+    },
+    {
+      "text": "%spark\nval path = s\"/data/$directoryName/\"\nval df = spark\n.read\n.option(\"header\",\"true\")\n.csv(path)\n.filter(col(\"年月日\")===date)\n.filter(col(\"市区名\").isin(ward:_*))\n\nz.show(df)",
+      "user": "anonymous",
+      "dateUpdated": "2022-08-22T04:30:38+0000",
+      "progress": 100,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 10,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 471.263,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "年月日": "string",
+                      "全国地方公共団体コード": "string",
+                      "市区名": "string",
+                      "面積［平方キロメートル］": "string",
+                      "世帯数［世帯］": "string",
+                      "人口総数［人］": "string",
+                      "男［人］": "string",
+                      "女［人］": "string",
+                      "１世帯当たり人員［人］": "string",
+                      "人口密度［人／平方キロメートル］": "string",
+                      "届出による前月比増減の世帯数［世帯］": "string",
+                      "届出による前月比増減の人口［人］": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "stacked": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "市区名",
+                  "index": 2,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "世帯数［世帯］",
+                  "index": 4,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 84.55,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "年月日": "string",
+                      "全国地方公共団体コード": "string",
+                      "市区名": "string",
+                      "面積［平方キロメートル］": "string",
+                      "世帯数［世帯］": "string",
+                      "人口総数［人］": "string",
+                      "男［人］": "string",
+                      "女［人］": "string",
+                      "１世帯当たり人員［人］": "string",
+                      "人口密度［人／平方キロメートル］": "string",
+                      "届出による前月比増減の世帯数［世帯］": "string",
+                      "届出による前月比増減の人口［人］": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "年月日\t全国地方公共団体コード\t市区名\t面積［平方キロメートル］\t世帯数［世帯］\t人口総数［人］\t男［人］\t女［人］\t１世帯当たり人員［人］\t人口密度［人／平方キロメートル］\t届出による前月比増減の世帯数［世帯］\t届出による前月比増減の人口［人］\n2022-02-01\t141011\t鶴見区\t33.23\t145414\t295377\t152237\t143140\t2.03\t8889\t-107\t-203\n2022-02-01\t141020\t神奈川区\t23.72\t130221\t247268\t126051\t121217\t1.90\t10424\t-166\t-176\n2022-02-01\t141186\t都筑区\t27.87\t86337\t214862\t105255\t109607\t2.49\t7709\t17\t-29\n2022-02-01\t141101\t戸塚区\t35.79\t123281\t283862\t138300\t145562\t2.30\t7931\t-74\t-222\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mpath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m = /data/yokohama_2022_2023/\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [年月日: string, 全国地方公共団体コード: string ... 10 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=3",
+              "$$hashKey": "object:11635"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=4",
+              "$$hashKey": "object:11636"
+            },
+            {
+              "jobUrl": "http://ba97d359cbce:4040/jobs/job?id=5",
+              "$$hashKey": "object:11637"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1661134507096_801208899",
+      "id": "paragraph_1661134507096_801208899",
+      "dateCreated": "2022-08-22T02:15:07+0000",
+      "dateStarted": "2022-08-22T04:31:08+0000",
+      "dateFinished": "2022-08-22T04:31:09+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:11059"
+    }
+  ],
+  "name": "AvintonAcademy",
+  "id": "2HBVWYDGN",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": true,
+    "looknfeel": "default",
+    "personalizedMode": "false",
+    "cronExecutingUser": "",
+    "cronExecutingRoles": ""
+  },
+  "info": {
+    "inIsolatedMode": false,
+    "isRunning": false
+  },
+  "path": "/AvintonAcademy"
+}
