@@ -85,8 +85,8 @@ println("train accuracy with pipeline" + accuracyScore(model.transform(trainDf),
 println("train accuracy with pipeline" + accuracyScore(model.transform(crossDf), "Survived", "prediction"))
 
 // result
-train accuracy with pipeline0.8534621578099839
-train accuracy with pipeline0.7835820895522388
+train accuracy with pipeline0.8476499189627229
+train accuracy with pipeline0.8161764705882353
 ```
 ```
 // Define ParameterGrid
@@ -112,10 +112,9 @@ println("train accuracy with pipeline" + accuracyScore(cvModel.transform(trainDf
 println("train accuracy with pipeline" + accuracyScore(cvModel.transform(crossDf), "Survived", "prediction"))
 
 // result
-train accuracy with pipeline0.8534621578099839
-train accuracy with pipeline0.7835820895522388
+train accuracy with pipeline0.8346839546191248
+train accuracy with pipeline0.8529411764705882
 ```
-
 ```
 // Read and Process test data
 val testDf = spark.read.option("header", "true").option("inferSchema", "true").csv("/data/titanic/test.csv")
@@ -127,7 +126,7 @@ def generateOutputFile(testDF: DataFrame, model: Model[_]) = {
     val scoredDf = model.transform(testDF)
     val outputDf = scoredDf.select("PassengerId", "prediction")
     val castedDf = outputDf.select(outputDf("PassengerId"), outputDf("prediction").cast(IntegerType).as("Survived"))
-    castedDf.write.format("csv").option("header", "true").mode(SaveMode.Overwrite).save("/data/titanic/")
+    castedDf.write.format("csv").option("header", "true").mode(SaveMode.Overwrite).save("/data/titanic/output/")
 }
 generateOutputFile(fixedOutputDf, model)
 ```
@@ -136,3 +135,4 @@ generateOutputFile(fixedOutputDf, model)
 - Error occurs when reading training data (SparkSession → spark)
 - Error occurs when processing categorical data (s"{column}_index" → s"${column}_index") 
 - Cross Validation took a long time to complete and there was no change in results
+- Note that different models are used when recalculating scores
