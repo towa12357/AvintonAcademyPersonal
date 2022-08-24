@@ -3,6 +3,9 @@
 - [Apache Superset 概要と環境構築](../SettingUp/note.md)
 
 ## Procedure
+- Donwload csv
+```
 
+```
 
 ## Review

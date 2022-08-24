@@ -7,14 +7,17 @@ sudo apt remove docker-desktop
 rm -r $HOME/.docker/desktop
 sudo rm /usr/local/bin/com.docker.cli
 sudo apt purge docker-desktop
+sudo apt install gnome-terminal
 
 # Set up Docker’s package repository.
-sudo apt install gnome-terminal
+sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # Download latest DEB package
 https://desktop.docker.com/linux/main/amd64/docker-desktop-4.11.0-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64
@@ -23,7 +26,13 @@ mv Downloads/docker-desktop-4.11.0-amd64.deb ./
 # Install the package with apt as follows
 sudo apt-get update
 sudo apt-get install ./docker-desktop-4.11.0-amd64.deb
-sudo apt istall docker-compose
+
+# Launch Docker Desktop
+systemctl --user start docker-desktop
+docker compose version
+docker --version
+docker version
+systemctl --user enable docker-desntop
 ```
 
 ## Procedure
