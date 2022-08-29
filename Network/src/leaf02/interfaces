@@ -11,12 +11,6 @@ iface eth0 inet dhcp
     ip-forward off
     ip6-forward off
     vrf mgmt
-auto swp1
-iface swp1
-auto swp2
-iface swp2
-auto swp3
-iface swp3
 auto swp49
 iface swp49
 auto swp50
@@ -25,24 +19,6 @@ auto swp51
 iface swp51
 auto swp52
 iface swp52
-auto bond1
-iface bond1
-    bond-slaves swp1
-    bond-mode 802.3ad
-    bond-lacp-bypass-allow no
-    clag-id 1
-auto bond2
-iface bond2
-    bond-slaves swp2
-    bond-mode 802.3ad
-    bond-lacp-bypass-allow no
-    clag-id 2
-auto bond3
-iface bond3
-    bond-slaves swp3
-    bond-mode 802.3ad
-    bond-lacp-bypass-allow no
-    clag-id 3
 auto peerlink
 iface peerlink
     bond-slaves swp49 swp50
@@ -54,28 +30,3 @@ iface peerlink.4094
     clagd-backup-ip 10.10.10.1
     clagd-sys-mac 44:38:39:BE:EF:AA
     clagd-args --initDelay 180
-auto vlan10
-iface vlan10
-    address 10.1.10.3/24
-    hwaddress 44:38:39:22:01:af
-    vlan-raw-device br_default
-    vlan-id 10
-auto vlan20
-iface vlan20
-address 10.1.20.3/24
-hwaddress 44:38:39:22:01:af
-vlan-raw-device br_default
-vlan-id 20
-auto vlan30
-iface vlan30
-address 10.1.30.3/24
-hwaddress 44:38:39:22:01:af
-vlan-raw-device br_default
-vlan-id 30
-auto br_default
-iface br_default
-bridge-ports bond1 bond2 bond3 peerlink
-hwaddress 44:38:39:22:01:af
-bridge-vlan-aware yes
-bridge-vids 10 20 30
-bridge-pvid 1

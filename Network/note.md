@@ -1,5 +1,4 @@
 # NVIDIA Cumulus VX + GNS3でBGPネットワークのシミュレーション
-
 ## Procedure
 1. Download and install [VirtualBox](https://www.virtualbox.org/)
 2. Download and install [GNS3](https://www.gns3.com/software)
@@ -102,4 +101,4 @@ sudo ifreload -a
 - Refer to [this page](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-52/Layer-3/Border-Gateway-Protocol-BGP/Configuration-Example/)
 - Refer to [this page](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-52/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting/)
 - Use Clone to Create VMs faster
-
+- Need to connect to the console to copy and paste
