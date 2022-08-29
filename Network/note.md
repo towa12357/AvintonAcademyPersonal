@@ -18,6 +18,7 @@ Path to VBoxManage: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
 ```
 - Create VirtualBox VM templates
 ```
+Console type: telnet
 Adapters: 4
 Type: Paravirtualized Network
 CheckBox: Allow GNS3 to use any configured VirtualBox adapter
@@ -96,10 +97,9 @@ sudo systemctl restart frr
 sudo ifreload -a
 ```
 
-
-
 ## Review
 - Refer to [this page](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/VirtualBox-and-GNS3/)
 - Refer to [this page](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-52/Layer-3/Border-Gateway-Protocol-BGP/Configuration-Example/)
 - Refer to [this page](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-52/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting/)
 - Use Clone to Create VMs faster
+
