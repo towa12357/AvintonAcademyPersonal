@@ -39,58 +39,14 @@ New password: H********3
 ```
 
 8. Configure BGP
+- [leaf01](./leaf01/commands.sh)
+- [leaf02](./leaf02/commands.sh)
+- [leaf03](./leaf03/commands.sh)
+- [leaf04](./leaf04/commands.sh)
+- [spine01](./spine01/commands.sh)
+- [spine02](./spine02/commands.sh)
+- For all VMs
 ```
-# Set hostname
-nv set system hostname [leaf01,leaf02,leaf03,leaf04,spine01,spine02]
-nv config apply
-exit
-
-# configure BGP
-## For leaf
-nv set interface lo ip address 10.10.10.[1,2,3,4]/32
-nv set interface swp1-3,swp49-52
-nv set interface bond1 bond member swp1
-nv set interface bond2 bond member swp2
-nv set interface bond3 bond member swp3
-nv set interface bond1 bond mlag id 1
-nv set interface bond2 bond mlag id 2
-nv set interface bond3 bond mlag id 3
-nv set interface bond1-3 bridge domain br_default 
-nv set interface peerlink bond member swp49-50
-nv config apply
-
-nv set mlag mac-address 44:38:39:BE:EF:AA
-nv set mlag backup 10.10.10.[2,1,4,3]
-nv set mlag peer-ip linklocal
-nv set interface vlan10 ip address 10.1.[10,10,40,40].[2,3,4,5]/24
-nv set interface vlan20 ip address 10.1.[20,20,50,50].[2,3,4,5]/24
-nv set interface vlan30 ip address 10.1.[30,30,60,60].[2,3,4,5]/24
-nv config apply
-
-nv set bridge domain br_default vlan [10,10,40,40],[20,20,50,50],[30,30,60,60]
-nv set bridge domain br_default untagged 1
-nv set router bgp autonomous-system 6510[1,2,3,4]
-nv set router bgp router-id 10.10.10.[1,2,3,4]
-nv set vrf default router bgp neighbor swp51 remote-as external
-nv set vrf default router bgp neighbor swp52 remote-as external
-nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.[1,2,3,4]/32
-nv set vrf default router bgp address-family ipv4-unicast redistribute connected
-nv config apply
-
-
-## For spine
-nv set interface lo ip address 10.10.10.10[1,2]/32
-nv set interface swp1-4
-nv set router bgp autonomous-system 65199
-nv set router bgp router-id 10.10.10.10[1,2]
-nv set vrf default router bgp neighbor swp1 remote-as external
-nv set vrf default router bgp neighbor swp2 remote-as external
-nv set vrf default router bgp neighbor swp3 remote-as external
-nv set vrf default router bgp neighbor swp4 remote-as external
-nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.10[1,2]/32
-nv config apply
-
-## For All
 sudo sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons
 sudo systemctl restart frr
 sudo ifreload -a
